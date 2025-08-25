@@ -1,31 +1,57 @@
 import random
 import sys
-word_list = ["aardvark", "baboon", "camel"]
+import lists
 
 def ask_letter():
-    return input("Please enter a letter. ")
+    return input("Please enter a letter: ")
 
 def get_random_word():
-    return list(random.choice(word_list))
+    return list(random.choice(lists.word_list))
 
-random_word = get_random_word()
-user_guess = []
-def draw_initial_lines():
+def draw_initial_lines(random_word):
     for _ in range(len(random_word)):
         user_guess.append("_")
-    print(*user_guess)
+    print(''.join(user_guess))
+    return user_guess
 
-def draw_guesses():
+def draw_guesses(life):
     guessed_letter = ask_letter()
-    for i in range(len(random_word)):
-        if random_word[i] == guessed_letter:
-            user_guess[i] = guessed_letter
-    print(*user_guess)
- 
-draw_initial_lines()
-for _ in range(6):
-    draw_guesses()
-    if user_guess == random_word:
-        print("You win!")
-        sys.exit()
-print("You lose")
+    if guessed_letter in random_word:
+        for i in range(len(random_word)):
+            if random_word[i] == guessed_letter:
+                user_guess[i] = guessed_letter
+    else:
+        life -= 1
+    draw_hangman(life)
+    print(''.join(user_guess))
+    return life
+
+def draw_hangman(life):
+    print(lists.stages[6 - life])
+
+def retry_logic():
+    choice = "x"
+    while choice != "y" and choice != "n":
+        choice = input ("Would you like to try again? (y/n) ")
+        if choice == "y":
+            return True
+        if choice == "n":
+            return False
+        
+retry = True
+while retry == True:
+    life = 7
+    random_word = get_random_word()
+    user_guess = []
+    user_guess = draw_initial_lines(random_word)
+    while True:
+        life = draw_guesses(life)
+        if user_guess == random_word:
+            print("You win!")
+            retry = retry_logic()
+            break
+        if life <= 0:
+            print(f"You lose! The correct word was {''.join(random_word)}.")
+            retry = retry_logic()
+            break
+print("Thank you for playing!")
