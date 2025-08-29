@@ -18,10 +18,10 @@ def get_resources():
 
 def print_report():
     report = get_resources()
-    print(f"Water: {report["water"]}ml")
-    print(f"Milk: {report["milk"]}ml")
-    print(f"Coffee: {report["coffee"]}g")
-    print(f"Money: ${report["money"]}")
+    print(f"Water: {report['water']}ml")
+    print(f"Milk: {report['milk']}ml")
+    print(f"Coffee: {report['coffee']}g")
+    print(f"Money: ${report['money']}")
 
 def print_out_of(resource):
     print(f"Sorry there is not enough {resource}.")
@@ -41,4 +41,10 @@ def check_enough_resources(drink_type):
 
 def get_coins_user():
     while True:
-        coins = input("Please enter coins ('quarters', 'dimes', 'nickles', 'pennies') ")
+        coins = input("Please enter coins ('quarters', 'dimes', 'nickles', 'pennies') ").lower()
+        if coins in {"quarters", "dimes", "nickles", "pennies"}:
+            return coins
+        print("Please enter a valid coin")
+
+def insert_coins(coin_list):
+    
