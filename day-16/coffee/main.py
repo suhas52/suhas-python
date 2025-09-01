@@ -1,24 +1,26 @@
-from menu import Menu, MenuItem
-from coffee_maker import CoffeeMaker
-from money_machine import MoneyMachine
+import coffee_maker
+from menu import Menu
+import money_machine
+import sys
 
-money_machine = MoneyMachine()
-coffee_maker = CoffeeMaker()
 menu = Menu()
+coffee_machine = coffee_maker.CoffeeMaker()
+money_machine = money_machine.MoneyMachine()
 
-is_on = True
-
-while is_on:
-    options = menu.get_items()
-    choice = input(f"what would you like? ({options}): ")
-    if choice == "off":
-        is_on = False
-    elif choice == "report":
-        money_machine.report()
-        coffee_maker.report()
-    else:
-        drink = menu.find_drink(choice)
-        if coffee_maker.is_resource_sufficient(drink):
-            if money_machine.make_payment(drink.cost):
-                coffee_maker.make_coffee(drink)
-        
+while True:
+	choice = input(f"What would you like? ({menu.get_items()}) ")
+	if choice == "off":
+		sys.exit()
+	if choice == "report":
+		print(coffee_machine.report())
+		print(money_machine.report())
+	else:
+		user_drink = menu.find_drink(choice)
+		if coffee_machine.is_resource_sufficient(user_drink):
+			if money_machine.make_payment(user_drink.cost):
+				coffee_machine.make_coffee(user_drink)
+			else:
+				print("Sorry that's not enough money. Money refunded.")
+		else:
+			print('Sorry there is not enough water.')
+	
