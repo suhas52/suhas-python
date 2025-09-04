@@ -1,4 +1,4 @@
-from turtle import Turtle, Screen, Vec2D
+from turtle import Turtle, Screen
 from random import choice
 
 timmy = Turtle()
@@ -17,8 +17,6 @@ def draw_shape(sides, colors):
 
 for i in range(3, 15):
 	draw_shape(i, colors)
-
-
 
 
 
