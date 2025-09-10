@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block content %}
+<h1>Weather Checker</h1>
+
+{% include '_forms.html' %}
+
+{% if error_message %}
+<p>{{ error_message }} </p>
+{% endif %}
+{% if weather_status %}
+<p>Temperature: {{ weather_status.temperature | round(2) }}°C</p>
+<p>Humidity: {{ weather_status.humidity }}%</p>
+<p>Weather: {{ weather_status.description }}</p>
+{% endif %}
+{% endblock content %}
