@@ -1,3 +1,6 @@
-class DataManager:
-    #This class is responsible for talking to the Google Sheet.
-    pass
+import datetime
+
+now = datetime.datetime.now().strftime("%Y-%m-%d")
+
+
+print(now)
